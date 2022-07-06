@@ -1,0 +1,30 @@
+title Tehtävä 0.5
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: Palauttaa sivun rungon
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: Palauttaa main.css tyylitiedoston
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin-->selain: palauttaa spa.js
+
+note over selain
+Selain suorittaa javascriptin,
+joka pyytää muistiipanoja palvelimelta
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: Palauttaa muistiinpanot json-muodossa
+
+note over selain:
+Selain tulostaa muistiinpanot
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/favicon.ico
+palvelin-->selain: Palauttaa favicon.ico:n
+
+note over selain:
+Sivulle siirtyminen toimii samalla tavalla
+kuin aikaisemmassa esimerkissä
+end note

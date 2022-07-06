@@ -1,0 +1,34 @@
+title Tehtävä 0.4
+
+note over selain:
+Käyttäjä painaa "Save" nappia
+end note
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over palvelin: Palvelin tallentaa viestin
+palvelin-->selain: Lataa sivu "https://studies.cs.helsinki.fi/exampleapp/note" uudestaan
+note over selain: 
+Selain lataa palvelimen pyynnöstä sivun uudelleen.
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin--> selain: Palauttaa sivun rungon
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: Palauttaa main.css tyylitiedoston
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: Palauttaa main.js
+
+note over selain: 
+Selain suorittaa main.js:ssä olevan koodin,
+ja pyytää muistiinpanot palvelimelta
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: Palauttaa muistiinpanot json-muodossa
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/favicon.ico
+palvelin-->selain: favicon.ico
+
+note over selain:
+Selain listaa muistiinpanot sivulle 
+end note

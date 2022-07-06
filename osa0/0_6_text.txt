@@ -1,0 +1,14 @@
+title Tehtävä 0.6
+
+note over selain:
+Käyttäjä painaa "Save" nappia. js-tiedosto lisää
+muistiinpanon listalle ja tulostaa muistiinpanot uudelleen
+end note
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+note over palvelin:
+Palvelin tallentaa json-muodossa tulleen muistiinpanon
+sisällön ja ajan.
+Palvelimen ei tarvitse palauttaa mitään,
+koska selain on jo tulostanut uuden muistiinpanon
