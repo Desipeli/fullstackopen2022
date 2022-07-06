@@ -2,7 +2,7 @@
 
 ### tehtävä 0.4
 
-![tehtävä 0.4](https://raw.githubusercontent.com/Desipeli/fullstackopen2022/tree/main/osa0/0_4_sekvenssi.png)
+![tehtävä 0.4](https://raw.githubusercontent.com/Desipeli/fullstackopen2022/main/osa0/0_4_sekvenssi.png)
 
 ### tehtävä 0.5
 
