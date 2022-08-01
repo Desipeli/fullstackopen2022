@@ -12,16 +12,36 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [aneVotes, setVote] = useState(new Uint8Array(anecdotes.length))
+  const [maxVotes, setMax] = useState({
+    index: 0, votes: 0
+  })
+
 
   const randomIndex = () => {
     setSelected(Math.floor(Math.random()*anecdotes.length))
   }
 
+  const voteAnecdote = () => {
+    const copy = [...aneVotes]
+    copy[selected] += 1
+    setVote(copy)
+
+    // Check if maxvotes needs updating
+    if (copy[selected] > maxVotes.votes) {
+      const maxVotesCopy = {...maxVotes}
+      maxVotesCopy.index = selected
+      maxVotesCopy.votes = copy[selected]
+      setMax(maxVotesCopy)
+    }
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
-      <br/>
+      <DisplayAnecdoteOFTheDay anecdote={anecdotes[selected]} votes={aneVotes[selected]}/>
+      <Button text="vote" handler={voteAnecdote}/>
       <Button text="next anecdote" handler={randomIndex}/>
+      <DisplayAnecdoteMostVotes anecdotes={anecdotes} index={maxVotes.index} votes={maxVotes.votes}/>
     </div>
   )
 }
@@ -31,6 +51,35 @@ const Button = (props) => {
     <button onClick={props.handler}>
       {props.text}
     </button>
+  )
+}
+
+
+const DisplayVotes = (props) => {
+  return (
+    <div>
+      has {props.votes} votes
+    </div>
+  )
+}
+
+const DisplayAnecdoteOFTheDay = (props) => {
+  return (
+    <div>
+      <h1> Anecdote of the day</h1>
+      {props.anecdote}
+      <DisplayVotes votes={props.votes}/>
+    </div>
+  )
+}
+
+const DisplayAnecdoteMostVotes = (props) => {
+  return(
+  <div>
+      <h1>Anecdote with most votes</h1>
+      <div>{props.anecdotes[props.index]}</div>
+      <div>has {props.votes}</div>
+    </div>
   )
 }
 
