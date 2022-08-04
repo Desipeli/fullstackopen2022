@@ -3,7 +3,12 @@ import axios from 'axios'
 import Filter from './components/Filter'
 import ShowFiltered from './components/ShowFiltered'
 
+import WEATHER from './env.js'
+
 const App = () => {
+
+
+
 
   const [filterText, setFilterText] = useState('')
   const [countries, setCountries] = useState([])
@@ -16,6 +21,7 @@ const App = () => {
       })
   }
   useEffect(getCountries, [])
+
 
   const filterHandler = (event) => {
     setFilterText(event.target.value)

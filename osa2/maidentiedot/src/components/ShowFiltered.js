@@ -1,7 +1,8 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import DisplayCountry from './DisplayCountry'
 import Button from "./Button"
+import DisplayWeather from './DisplayWeather'
 
 const ShowFiltered = ({ countries, filterText, setFilterText }) => {
 
@@ -25,7 +26,6 @@ const ShowFiltered = ({ countries, filterText, setFilterText }) => {
 
 const DisplayConditions = ({ filtered, setFilterText }) => {
 
-  console.log("display...", filtered, "pituus:", filtered.length)
 
   const handleCountryButton = (country) => {
     setFilterText(country.name.common)
@@ -47,9 +47,11 @@ const DisplayConditions = ({ filtered, setFilterText }) => {
         </>
       )
   } else if (filtered.length === 1) {
+
     return (
       <>
         <DisplayCountry country={filtered[0]}/>
+       <DisplayWeather capital={filtered[0].capital}/>
       </>
     )
   } else {
