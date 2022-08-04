@@ -1,5 +1,5 @@
-const DisplayCountry = ( {country} ) => {
 
+const DisplayCountry = ( {country} ) => {
 
     return (
         <>
@@ -32,7 +32,6 @@ const Languages = ({country}) => {
     return (
         <ul>
             {langs.map(lang => <li key={lang}>{lang}</li>)}
-            
         </ul>
     )
 }

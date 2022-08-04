@@ -1,18 +1,26 @@
+import {useState} from 'react'
+
 import DisplayCountry from './DisplayCountry'
+import Button from "./Button"
 
-const ShowFiltered = ({ countries, filterText}) => {
+const ShowFiltered = ({ countries, filterText, setFilterText }) => {
 
-    const filtered = countries.filter(country => 
+    let filtered = countries.filter(country => 
       country.name.common.toLowerCase().includes(filterText.toLowerCase()))
+
   
     return (
     <div>
-      <DisplayConditions filtered={filtered}/>
+      <DisplayConditions setFilterText={setFilterText} filtered={filtered}/>
     </div>
     )
   }
 
-const DisplayConditions = ({ filtered }) => {
+const DisplayConditions = ({ filtered, setFilterText }) => {
+
+  const handleCountryButton = (country) => {
+    setFilterText(country.name.common)
+  }
 
   if (filtered.length > 10) {
     return (
@@ -23,7 +31,10 @@ const DisplayConditions = ({ filtered }) => {
   } else if (filtered.length > 1) {
     return (
       <>
-        {filtered.map((country, i) => <p key={country.name.common}>{country.name.common}</p>)}
+        {filtered.map((country, i) => 
+        <p key={country.name.common}>{country.name.common} 
+        <Button handler={() => handleCountryButton(country)} text="show"/></p>
+        )}
         </>
       )
   } else if (filtered.length === 1) {
