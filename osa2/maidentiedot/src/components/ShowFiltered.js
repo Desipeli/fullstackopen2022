@@ -5,18 +5,27 @@ import Button from "./Button"
 
 const ShowFiltered = ({ countries, filterText, setFilterText }) => {
 
-    let filtered = countries.filter(country => 
+    const filtered = countries.filter(country => 
       country.name.common.toLowerCase().includes(filterText.toLowerCase()))
 
+    // Tämän avulla löydetään myös maat, joidenka nimi on osa toisen maan nimeä
+    let filtered2 = filtered
+     Array.from(filtered).forEach(country => {
+       if (country.name.common.toLowerCase() === filterText.toLowerCase()) {
+         filtered2 = [country]
+       }
+     })
   
     return (
     <div>
-      <DisplayConditions setFilterText={setFilterText} filtered={filtered}/>
+      <DisplayConditions setFilterText={setFilterText} filtered={filtered2}/>
     </div>
     )
   }
 
 const DisplayConditions = ({ filtered, setFilterText }) => {
+
+  console.log("display...", filtered, "pituus:", filtered.length)
 
   const handleCountryButton = (country) => {
     setFilterText(country.name.common)
