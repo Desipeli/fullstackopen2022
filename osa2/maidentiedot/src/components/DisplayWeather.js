@@ -25,7 +25,6 @@ const DisplayWeather = ({capital}) => {
           axios
             .get(url)
             .then(response => {
-              console.log(response.data)
               const weather = response.data
                 setTemp(weather.main.temp)
                 setWind(weather.wind.speed)
