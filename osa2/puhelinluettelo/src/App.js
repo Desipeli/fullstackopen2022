@@ -32,7 +32,7 @@ const App = () => {
     Numbers
         .create(newPerson)
         .then(returnedPerson => {
-          setPersons(persons.concat(newPerson))
+          setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
         })
@@ -61,7 +61,7 @@ const App = () => {
         handleNumberFieldChange={handleNumberFieldChange}
         addName={addName}
       />
-      <ShowPersons persons={persons} filterText={filterText}/>
+      <ShowPersons setPersons={setPersons} persons={persons} filterText={filterText}/>
     </div>
   )
 }
