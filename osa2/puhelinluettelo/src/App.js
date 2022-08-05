@@ -4,12 +4,17 @@ import AddForm from './components/AddForm'
 import ShowPersons from './components/ShowPersons'
 import Filter from './components/Filter'
 import Numbers from './services/Numbers'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterText, setFilterText] = useState('')
+
+  const [notification, setNotification] = useState(null)
+  const [notificationType, setNotificationType] = useState('error')
+
 
 
   const getNumbers = () => {
@@ -37,6 +42,10 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+
+        setNotification(`Added ${returnedPerson.name}`)
+        setNotificationType('notification')
+        notificationTimer()
         })
      }
 
@@ -45,8 +54,41 @@ const App = () => {
       .update(person.id, {...person, number : newNumber})
       .then( response => {
         setPersons(persons.map(p => p.id !== person.id ? p : response))
+        setNotification(`Number of ${person.name} has been changed`)
+        setNewName('')
+        setNewNumber('')
+        setNotificationType('notification')
+        notificationTimer()
+      })
+      .catch(error => {
+        removedAlreadyError(person)
       })
   }
+
+  const deleteHandler = (id) => {
+    Numbers
+          .deleteNumber(id)
+          .then(response => {
+            setNotification(`Removed ${persons.find(p => p.id === id).name}`)
+            setPersons(persons.filter(person => person.id !== id))
+            setNotificationType('notification')
+            notificationTimer()
+          })
+          .catch(error => {
+            removedAlreadyError(persons.find(p => p.id === id))
+          })
+        }
+
+  const removedAlreadyError = (person) => {
+    setNotification(`${person.name} was already removed`)
+    setNotificationType('error')
+    notificationTimer()
+    getNumbers()
+  }
+
+  const notificationTimer = (time = 2000) => setTimeout(() => {
+    setNotification(null)
+  }, time)
 
   const filterHandler = (event) => {
     setFilterText(event.target.value)
@@ -63,6 +105,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} notificationClass={notificationType}/>
       <Filter filterText={filterText} filterHandler={filterHandler}/>
       <h2>add a new</h2>
       <AddForm newName={newName}
@@ -71,7 +114,7 @@ const App = () => {
         handleNumberFieldChange={handleNumberFieldChange}
         addName={addName}
       />
-      <ShowPersons setPersons={setPersons} persons={persons} filterText={filterText}/>
+      <ShowPersons deleteHandler={deleteHandler} setPersons={setPersons} persons={persons} filterText={filterText}/>
     </div>
   )
 }

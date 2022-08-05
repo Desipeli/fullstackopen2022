@@ -1,24 +1,13 @@
 import Button from "./Button"
 import Numbers from "../services/Numbers"
+import Notification from "./Notification"
 
-const ShowPersons = ({ persons, filterText, setPersons }) => {
+const ShowPersons = ({ persons, filterText, deleteHandler }) => {
 
     let numbersToShow = persons.filter(person => 
       person.name.toLowerCase().includes(filterText.toLowerCase()))
 
-    const deleteHandler = (id) => {
-      Numbers
-        .getOne(id)
-        .then(returnedPerson => {
-          if (window.confirm(`Delete ${returnedPerson.name} ?`)) {
-            Numbers
-            .deleteNumber(id)
-            .then(response => {
-              setPersons(persons.filter(person => person.id !== id))
-            })
-          }
-        })    
-    }
+    
   
     return (
     <div>
