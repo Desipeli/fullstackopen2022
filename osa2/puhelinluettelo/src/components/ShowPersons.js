@@ -10,7 +10,7 @@ const ShowPersons = ({ persons, filterText, setPersons }) => {
       Numbers
         .getOne(id)
         .then(returnedPerson => {
-          if (window.confirm(`Delete ${returnedPerson.name}`)) {
+          if (window.confirm(`Delete ${returnedPerson.name} ?`)) {
             Numbers
             .deleteNumber(id)
             .then(response => {

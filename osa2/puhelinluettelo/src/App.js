@@ -22,7 +22,9 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
      if (persons.find((person) => person.name.toLowerCase() === newName.toLowerCase())) {
-       alert(` ${newName} is already added to phonebook`)
+       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        replaceNumber(persons.find(person => person.name.toLowerCase() === newName.toLowerCase()))
+       }
        return
      }
     const newPerson = {
@@ -37,6 +39,14 @@ const App = () => {
           setNewNumber('')
         })
      }
+
+  const replaceNumber = (person) => {
+    Numbers
+      .update(person.id, {...person, number : newNumber})
+      .then( response => {
+        setPersons(persons.map(p => p.id !== person.id ? p : response))
+      })
+  }
 
   const filterHandler = (event) => {
     setFilterText(event.target.value)
