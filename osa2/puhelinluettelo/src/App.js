@@ -47,6 +47,9 @@ const App = () => {
         setNotificationType('notification')
         notificationTimer()
         })
+        .catch(error => {
+          errorMessaging(error)
+        })
      }
 
   const replaceNumber = (person) => {
@@ -61,7 +64,7 @@ const App = () => {
         notificationTimer()
       })
       .catch(error => {
-        removedAlreadyError(person)
+        errorMessaging(error)
       })
   }
 
@@ -75,18 +78,18 @@ const App = () => {
             notificationTimer()
           })
           .catch(error => {
-            removedAlreadyError(persons.find(p => p.id === id))
+            errorMessaging(error)
           })
         }
 
-  const removedAlreadyError = (person) => {
-    setNotification(`${person.name} was already removed`)
+  const errorMessaging = (error) => {
+    setNotification(`${error.response.data.error}`)
     setNotificationType('error')
     notificationTimer()
     getNumbers()
   }
 
-  const notificationTimer = (time = 2000) => setTimeout(() => {
+  const notificationTimer = (time = 4000) => setTimeout(() => {
     setNotification(null)
   }, time)
 
