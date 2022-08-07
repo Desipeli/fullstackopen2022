@@ -5,3 +5,5 @@
 ## [Osa 1](https://github.com/Desipeli/fullstackopen2022/tree/main/osa1)
 
 ## [Osa 2](https://github.com/Desipeli/fullstackopen2022/tree/main/osa2)
+
+## [Osa 3](https://github.com/Desipeli/fullstackopen2022osa3)
