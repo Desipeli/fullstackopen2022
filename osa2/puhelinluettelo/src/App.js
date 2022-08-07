@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import AddForm from './components/AddForm'
 import ShowPersons from './components/ShowPersons'
 import Filter from './components/Filter'
@@ -56,6 +55,10 @@ const App = () => {
     Numbers
       .update(person.id, {...person, number : newNumber})
       .then( response => {
+        if (!response) {
+          errorMessaging({response: {data: {error: `${person.name} already removed`}}})
+          return
+        }
         setPersons(persons.map(p => p.id !== person.id ? p : response))
         setNotification(`Number of ${person.name} has been changed`)
         setNewName('')
